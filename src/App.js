@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { getFlags } from './services/flags';
+import FlagsCard from './components/FlagCard';
 import './App.css';
 
 function App() {
+  const [flags, setFlags] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getFlags();
+      setFlags(data);
+    };
+    fetchData();
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {flags.map((flag) => {
+        return <FlagsCard key ={flag.name} {...flag} />;
+      })}
     </div>
   );
 }
