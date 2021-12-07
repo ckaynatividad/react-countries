@@ -10,16 +10,17 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFlags();
+      console.log(data);
       setFlags(data);
     };
     fetchData();
   }, []);
   return (
-    <div className="App">
+    <section className="App">
       {flags.map((flag) => {
-        return <FlagsCard key ={flag.name} {...flag} />;
+        return <FlagsCard key={flag.id} {...flag} />;
       })}
-    </div>
+    </section>
   );
 }
 
