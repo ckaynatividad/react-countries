@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFlags();
-      console.log(data);
+    
       setFlags(data);
     };
     fetchData();
