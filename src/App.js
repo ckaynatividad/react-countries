@@ -6,6 +6,8 @@ import './App.css';
 
 function App() {
   const [flags, setFlags] = useState([]);
+  const [query, setQuery] = useState('');
+  const [sort, setSort] = useState('all');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,9 +17,20 @@ function App() {
     };
     fetchData();
   }, []);
+  const filterFlags = () => {
+    return flags.filter((flag) => flag.name.includes(query) && (flag.sort === sort || sort === 'all'));
+  };
+
   return (
     <section className="App">
-      {flags.map((flag) => {
+      <h1>Countries</h1>
+      <input type="text" value={query} onChange={(e) => { setQuery(e.target.value);
+      }} />
+      <select value ={sort} onChange={e=>setSort(e.target.value)}>
+        <option value="all">All</option>
+        <option value="name">Name</option>
+      </select>
+      {filterFlags().map((flag) => {
         return <FlagsCard key={flag.id} {...flag} />;
       })}
     </section>
